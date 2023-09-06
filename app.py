@@ -97,15 +97,11 @@ if __name__ == "__main__":
         expense.setDescription(prov.get_description())
         expense.setCategory(category)
         expense.setGroupId(group.id)
-        ourself = api.getCurrentUser()
-        expense_user = ExpenseUser()
-        expense_user.setId(ourself.getId())
-        expense_user.setPaidShare(cost)
-        expense_user.setOwedShare(cost)
-        expense.setUsers([expense_user])
+        expense.setSplitEqually(True)
 
         e, errors = api.createExpense(expense)
         if e:
-            print(e.getId())
+            print("Created expense: " + prov.get_description())
         if errors:
-            print(errors.getErrors())
+            print("Error creating expense: " + prov.get_description())
+            print(errors)
